@@ -4,7 +4,7 @@ const Navbar = () => {
   return (
     	<nav className="navbar">
           <div className="navbar-brand">
-          <link to="/">📔 My Smart Journal</link>
+          <Link to="/">📔 My Smart Journal</Link>
           </div>
 				<div className="navbar-links">
 				<Link to='/'>Home</Link>
