@@ -1,6 +1,7 @@
 import express, { Application } from 'express'
 import cors from 'cors';
 import entryRoutes from './routes/entryRoutes';
+import summaryRoutes from './routes/summaryRoutes'
 
 const app: Application = express();
 
@@ -16,6 +17,7 @@ app.use('/api/health', (req, res) => {
 
 //Routes
 app.use('/api/entries', entryRoutes);
+app.use('/api/summary', summaryRoutes)
 
 
 

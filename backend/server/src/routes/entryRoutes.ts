@@ -12,7 +12,6 @@ import {
 const Router = express.Router();
 
 Router.get('/', getAllEntries);
-Router.get('/summary/weekly', getWeeklySummary);
 Router.get('/:id', getEntryById);
 Router.post('/', createEntry);
 Router.put('/:id', updateEntry);
