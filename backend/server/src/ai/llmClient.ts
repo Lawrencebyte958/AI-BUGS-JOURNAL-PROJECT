@@ -6,22 +6,33 @@
 // }
 
 
+import 'dotenv/config';
 
-import OpenAI from "openai";
+console.log("LLM KEY LOADED:", !!process.env.OPENAI_API_KEY);
 
 export async function callLLM(prompt: string): Promise<string> {
-  // If we're still building, we use a fake response.
+  // Mock mode (no API calls)
   if (process.env.MOCK_MODE === "true") {
-    return "Mock summary: This week you faced some pressure early on, stayed consistent with your tasks, and ended the week feeling more focused and steady.";
+    return (
+      "Mock summary: This week you faced some pressure early on, stayed consistent " +
+      "with your tasks, and ended the week feeling more focused and steady."
+    );
   }
 
-  if (!process.env.OPENAI_API_KEY) {
+  //  Basic env check
+  const apiKey = process.env.OPENAI_API_KEY;
+  if (!apiKey) {
     throw new Error("OPENAI_API_KEY is missing in .env");
   }
 
-  const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+  // Load OpenAI only when we actually need it
+  const { default: OpenAI } = await import("openai");
+  const client = new OpenAI({ apiKey });
+
+  // Pick a model (or use the default)
   const model = process.env.OPENAI_MODEL || "gpt-4o-mini";
 
+  //  Make the request
   const response = await client.chat.completions.create({
     model,
     temperature: 0.4,
@@ -29,14 +40,15 @@ export async function callLLM(prompt: string): Promise<string> {
       {
         role: "system",
         content:
-          "Write a short weekly summary based only on the journal entries. 3–5 sentences, supportive and neutral, no bullet points, no emojis.",
+          "Write a short weekly summary based only on the journal entries. " +
+          "3–5 sentences, supportive and neutral, no bullet points, no emojis.",
       },
       { role: "user", content: prompt },
     ],
   });
 
-  const text = response.choices[0]?.message?.content?.trim();
-
+  // Pull the text safely
+  const text = response.choices?.[0]?.message?.content?.trim();
   if (!text) {
     throw new Error("No summary returned from OpenAI.");
   }

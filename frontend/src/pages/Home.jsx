@@ -27,10 +27,10 @@ const Home = () => {
     }; 
 
     const handleDelete = async (id) => {
-        if (window.confirm('Are you sure you want to delte this entry?')) {
+        if (window.confirm('Are you sure you want to delete this entry?')) {
             try {
                 await journalAPI.deleteEntry(id); 
-                setEntries(entries.filter((entry) => entry.id !== id))
+                setEntries(entries.filter((entry) => entry._id !== id))
             } catch (err) {
                 setError('Failed to delete entry'); 
                 console.error(err); 

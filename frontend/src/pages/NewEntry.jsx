@@ -18,7 +18,7 @@ const NewEntry = () => {
 
             navigate("/")
         } catch (err) {
-            setError("Failed to create entry. PLease try again", err)
+            setError("Failed to create entry. Please try again", err)
         } finally {
             setIsLoading(false)
         }
