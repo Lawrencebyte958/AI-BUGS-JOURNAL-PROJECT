@@ -1,6 +1,6 @@
 import axios from "axios"; 
 
-const API_BASE_URL = "http://localhost:3000/api/entries";
+const API_BASE_URL = "http://localhost:3000/api";
 
 const api = axios.create({
     baseURL: API_BASE_URL,
@@ -11,32 +11,63 @@ const api = axios.create({
 
 export const journalAPI = {
     getAllEntries: async () => {
-        const res = await api.get('/entries')
-        return res.data; 
+        try { 
+        	const res = await api.get('/entries')
+        	return res.data; 
+        } catch (err) {
+					console.error('error fetching entries', err)
+					throw err
+        }
+        
     }, 
 
     getEntryById: async (id) => {
-        const res = await api.get(`/entries/${id}`)
+			try {
+				const res = await api.get(`/entries/${id}`)
         return res.data; 
+			} catch (err) {
+				console.error('error fetching entry by id', err)
+				throw err
+			}
     }, 
 
     createEntry: async (entry) => {
-        const res = await api.post('/entries', entry); 
+			try {
+				const res = await api.post('/entries', entry); 
         return res.data; 
+			} catch (err) {
+				console.error('error creating entry', err)
+				throw err
+			}
     }, 
 
     updateEntry: async (id, entry) => {
-        const res = await api.put(`/entries/${id}`, entry); 
+			try {
+				const res = await api.put(`/entries/${id}`, entry); 
         return res.data; 
+			} catch (err) {
+				console.error('error updating entry', err); 
+				throw err;
+			}
     },
 
     deleteEntry: async (id) => {
+			try {
         await api.delete(`/entries/${id}`); 
+			} catch (err) {
+				console.error('error deleting entry', err); 
+				throw err; 
+			}
     }, 
 
     getWeeklySummary: async () => {
-        const res = await api.get('/path/to/summary'); 
-        return res.data; 
+			try {
+        const res = await api.get('/summary/weekly'); 
+        return res.data;
+			} catch (err) {
+				console.error('error fetching weekly summary', err); 
+				throw err
+			}
     }
 }
 

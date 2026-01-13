@@ -12,7 +12,6 @@ function App() {
     <Router>
       <div className="app">
         <Navbar/>
-      </div>
       <main className="main-content">
         <Routes>
           <Route path="/" element={<Home />}/>
@@ -22,7 +21,7 @@ function App() {
           <Route path="/summary" element={<WeeklySummary/>}/>
         </Routes>
       </main>
-
+      </div>
     </Router>
   )
 }

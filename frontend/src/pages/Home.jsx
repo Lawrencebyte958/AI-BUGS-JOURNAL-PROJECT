@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"; 
 import { useNavigate } from "react-router-dom";
 import { journalAPI } from "../services/api";
-import JournalList from "../components/JournalList";
+import JournalList2 from "../components/JournalList";
 
 const Home = () => {
     const [entries, setEntries] = useState([]); 
@@ -47,7 +47,7 @@ const Home = () => {
         <div className="home-page">
             <h1>My Journal</h1>
             {error && <div className="error-message">{error}</div>}
-            <JournalList 
+            <JournalList2 
                 entries={entries}
                 onDelete={handleDelete}
                 onEdit={handleEdit}

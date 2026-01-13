@@ -15,7 +15,7 @@ const JournalEntry = () => {
   };
 
   return (
-    <nav className="Journal Page">
+    <nav className="journal-entry">
       <form onSubmit={handleSubmit}>
         <label>Title</label>
         <textarea
