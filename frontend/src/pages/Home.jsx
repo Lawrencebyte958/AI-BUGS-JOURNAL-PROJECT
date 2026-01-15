@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"; 
 import { useNavigate } from "react-router-dom";
 import { journalAPI } from "../services/api";
-import JournalList from "../components/JournalList";
+import JournalList2 from "../components/JournalList";
 
 const Home = () => {
     const [entries, setEntries] = useState([]); 
@@ -20,17 +20,17 @@ const Home = () => {
             setEntries(data); 
         } catch (err) {
             setError('Failed to load entries, is the backend up?'); 
-            console.err(err)
+            console.error(err)
         } finally {
             setIsLoading(false); 
         }
     }; 
 
     const handleDelete = async (id) => {
-        if (window.confirm('Are you sure you want to delte this entry?')) {
+        if (window.confirm('Are you sure you want to delete this entry?')) {
             try {
                 await journalAPI.deleteEntry(id); 
-                setEntries(entries.filter((entry) => entry.id !== id))
+                setEntries(entries.filter((entry) => entry._id !== id))
             } catch (err) {
                 setError('Failed to delete entry'); 
                 console.error(err); 
@@ -47,7 +47,7 @@ const Home = () => {
         <div className="home-page">
             <h1>My Journal</h1>
             {error && <div className="error-message">{error}</div>}
-            <JournalList 
+            <JournalList2 
                 entries={entries}
                 onDelete={handleDelete}
                 onEdit={handleEdit}

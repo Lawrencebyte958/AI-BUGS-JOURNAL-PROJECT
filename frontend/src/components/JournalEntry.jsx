@@ -1,21 +1,22 @@
 import {Link} from 'react-router-dom'
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-const journalEntry = () => {
-
+const JournalEntry = () => {
   const [title, setTitle] = useState("");
   const [entry, setEntry] = useState("");
 
-  const handleSubmit = (ent) =>{
-    ent.preventDefault();
+  const navigate = useNavigate(); 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    navigate("/JournalList", {
+      state: { title, entry }
+    });
+  };
 
-    Navigate("/JournalList")
-     state: { title, entry }
-  }
   return (
-    <nav className='journalPage'>
-        <form onSubmit={handleSubmit}>
+    <nav className="journal-entry">
+      <form onSubmit={handleSubmit}>
         <label>Title</label>
         <textarea
           id="user_title_entry"
@@ -37,7 +38,9 @@ const journalEntry = () => {
     </nav>
   );
 };
-export default journalEntry;
+
+export default JournalEntry;
+
 //   const navigate = useNavigate();
 // return journalEntry(
 
@@ -53,5 +56,4 @@ export default journalEntry;
 //     </nav>
 // )
 // }
-
 //note for later, make it automatically add the current date to the side of a journel entrys name and size it appropriately
